@@ -4,9 +4,9 @@ import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/lib/auth';
 
 interface Params {
-  params: Promise<{
+  params: {
     id: string;
-  }>;
+  };
 }
 
 // GET /api/forum/categories/[id] - Hämta en kategori
@@ -15,8 +15,7 @@ export async function GET(
   { params }: Params
 ) {
   try {
-    const resolvedParams = await params;
-    const id = resolvedParams.id;
+    const id = params.id;
     
     // Hämta kategori och räkna trådar
     const category = await prisma.forumCategory.findUnique({
@@ -56,8 +55,7 @@ export async function PATCH(
   { params }: Params
 ) {
   try {
-    const resolvedParams = await params;
-    const id = resolvedParams.id;
+    const id = params.id;
     const session = await getServerSession(authOptions);
     
     // Kontrollera att användaren är admin eller moderator
@@ -121,8 +119,7 @@ export async function DELETE(
   { params }: Params
 ) {
   try {
-    const resolvedParams = await params;
-    const id = resolvedParams.id;
+    const id = params.id;
     const session = await getServerSession(authOptions);
     
     // Kontrollera att användaren är admin
