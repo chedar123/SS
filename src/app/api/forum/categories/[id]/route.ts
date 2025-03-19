@@ -53,9 +53,11 @@ export async function GET(
 // PATCH /api/forum/categories/[id] - Uppdatera en kategori
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: Params
 ) {
   try {
+    const resolvedParams = await params;
+    const id = resolvedParams.id;
     const session = await getServerSession(authOptions);
     
     // Kontrollera att användaren är admin eller moderator
@@ -66,7 +68,6 @@ export async function PATCH(
       );
     }
     
-    const { id } = params;
     const data = await request.json();
     
     // Kontrollera att kategorin finns
