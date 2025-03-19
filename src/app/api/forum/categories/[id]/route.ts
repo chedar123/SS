@@ -3,16 +3,10 @@ import { getServerSession } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/lib/auth';
 
-interface Params {
-  params: {
-    id: string;
-  };
-}
-
 // GET /api/forum/categories/[id] - Hämta en kategori
 export async function GET(
   request: NextRequest,
-  { params }: Params
+  { params }: { params: { id: string } }
 ) {
   try {
     const id = params.id;
@@ -52,7 +46,7 @@ export async function GET(
 // PATCH /api/forum/categories/[id] - Uppdatera en kategori
 export async function PATCH(
   request: NextRequest,
-  { params }: Params
+  { params }: { params: { id: string } }
 ) {
   try {
     const id = params.id;
@@ -116,7 +110,7 @@ export async function PATCH(
 // DELETE /api/forum/categories/[id] - Ta bort en kategori
 export async function DELETE(
   request: NextRequest,
-  { params }: Params
+  { params }: { params: { id: string } }
 ) {
   try {
     const id = params.id;
